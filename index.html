@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霜蓝的个人主页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f9ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #2d3748;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 头像区域 */
+        .avatar-container {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a90e2 0%, #63b3ed 100%);
+            margin: 0 auto 15px;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .furry-character {
+            position: relative;
+            width: 80%;
+            height: 80%;
+        }
+        
+        .head {
+            width: 100%;
+            height: 70%;
+            background-color: #2d3748;
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+        }
+        
+        .ear {
+            position: absolute;
+            width: 25px;
+            height: 40px;
+            background-color: #2d3748;
+            top: -20px;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .ear-left {
+            left: 25px;
+            transform: rotate(-10deg);
+        }
+        
+        .ear-right {
+            right: 25px;
+            transform: rotate(10deg);
+        }
+        
+        .ear-tip {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: #4a90e2;
+            bottom: 0;
+            border-radius: 0 0 50% 50%;
+        }
+        
+        .face {
+            position: absolute;
+            width: 60%;
+            height: 50%;
+            background-color: #e2e8f0;
+            bottom: 0;
+            left: 20%;
+            border-radius: 40% 40% 50% 50%;
+        }
+        
+        .eye {
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            background-color: #4a90e2;
+            border-radius: 50%;
+            top: 15px;
+            animation: blink 4s infinite;
+        }
+        
+        .eye-left {
+            left: 20px;
+        }
+        
+        .eye-right {
+            right: 20px;
+        }
+        
+        .mouth {
+            position: absolute;
+            width: 40px;
+            height: 25px;
+            background-color: #e53e3e;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 50% 50%;
+        }
+        
+        .tongue {
+            position: absolute;
+            width: 20px;
+            height: 15px;
+            background-color: #fc8181;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+        }
+        
+        @keyframes blink {
+            0%, 95%, 100% {
+                height: 20px;
+            }
+            97% {
+                height: 2px;
+            }
+        }
+        
+        .speech-bubble {
+            position: absolute;
+            top: -10px;
+            right: 0;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #2d3748;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            animation: bounce 2s infinite;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 20px;
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: white transparent;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* 标题样式 */
+        .greeting {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 30px;
+        }
+        
+        /* 按钮区域 */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4a90e2 0%, #63b3ed 100%);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+            background: linear-gradient(135deg, #3a7bc8 0%, #4a90e2 100%);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            font-size: 18px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            margin-top: 30px;
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .greeting {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="avatar-container">
+                <div class="avatar">
+                    <div class="avatar-inner">
+                        <div class="furry-character">
+                            <div class="head">
+                                <div class="ear ear-left">
+                                    <div class="ear-tip"></div>
+                                </div>
+                                <div class="ear ear-right">
+                                    <div class="ear-tip"></div>
+                                </div>
+                                <div class="face">
+                                    <div class="eye eye-left"></div>
+                                    <div class="eye eye-right"></div>
+                                    <div class="mouth">
+                                        <div class="tongue"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="speech-bubble">爱你！</div>
+            </div>
+            
+            <div class="greeting">你好</div>
+            
+            <div class="button-container">
+                <a href="#intro" class="btn" id="intro-btn">
+                    <i class="fas fa-paw"></i> 介绍
+                </a>
+                <a href="#copyright" class="btn" id="copyright-btn">
+                    <i class="fas fa-copyright"></i> 版权信息
+                </a>
+                <a href="#follow" class="btn" id="follow-btn">
+                    <i class="fas fa-heart"></i> 关注我们与下载软件
+                </a>
+                <a href="#contact" class="btn" id="contact-btn">
+                    <i class="fas fa-envelope"></i> 联系我们
+                </a>
+            </div>
+            
+            <div class="footer">
+                © 2025 个人主页
+            </div>
+        </div>
+    </div>
+
+    <!-- 内容页面 -->
+    <div id="intro" class="page" style="display: none;">
+        <div class="page-content">
+            <h2>介绍</h2>
+            <p>公益免费</p>
+            <p>不要2改</p>
+            <button class="back-btn">返回主页</button>
+        </div>
+    </div>
+    
+    <div id="copyright" class="page" style="display: none;">
+        <div class="page-content">
+            <h2>版权信息</h2>
+            <p>设计版权所有，未经许可不得用于商业用途。</p>
+            <p>个人非商业使用请注明出处。</p>
+            <button class="back-btn">返回主页</button>
+        </div>
+    </div>
+    
+    <div id="follow" class="page" style="display: none;">
+        <div class="page-content">
+            <h2>关注我们与下载软件</h2>
+            <p>在以下平台关注的最新动态：</p>
+            <div class="social-links">
+                <a href="https://www.kuaishou.com/profile/3x965ffrtfv9gvm" class="social-btn">快手</a>
+                <a href="https://ku2885887591.github.io/kuyi/" class="social-btn">下载软件</a>
+            </div>
+            <button class="back-btn">返回主页</button>
+        </div>
+    </div>
+    
+    <div id="contact" class="page" style="display: none;">
+        <div class="page-content">
+            <h2>联系我们</h2>
+            <p>如有合作或咨询需求，请通过以下方式联系我们：</p>
+            <p>邮箱：3885887591@QQ.com</p>
+            <p>快手：aa666111qqww</p>
+            <button class="back-btn">返回主页</button>
+        </div>
+    </div>
+    
+    <div id="comment" class="page" style="display: none;">
+        <div class="page-content">
+            <h2>评论留言</h2>
+            <textarea placeholder="请输入您的留言..." rows="5"></textarea>
+            <button class="submit-btn">提交留言</button>
+            <button class="back-btn">返回主页</button>
+        </div>
+    </div>
+
+    <style>
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f9ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .page-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .page-content h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        
+        .page-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .back-btn, .submit-btn {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        
+        .back-btn:hover, .submit-btn:hover {
+            background: #3a7bc8;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .social-btn {
+            background: #4a90e2;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .social-btn:hover {
+            background: #3a7bc8;
+        }
+    </style>
+
+    <script>
+        // 页面跳转功能
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // 隐藏主页
+                document.querySelector('.container').style.display = 'none';
+                
+                // 显示目标页面
+                document.getElementById(targetId).style.display = 'flex';
+            });
+        });
+        
+        // 返回主页功能
+        document.querySelectorAll('.back-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 隐藏所有页面
+                document.querySelectorAll('.page').forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                // 显示主页
+                document.querySelector('.container').style.display = 'block';
+            });
+        });
+        
+        // 留言提交功能
+        document.querySelector('.submit-btn').addEventListener('click', function() {
+            const textarea = document.querySelector('textarea');
+            if (textarea.value.trim() === '') {
+                alert('请输入留言内容！');
+                return;
+            }
+            
+            alert('留言提交成功！感谢您的反馈。');
+            textarea.value = '';
+        });
+    </script>
+</body>
+</html>
